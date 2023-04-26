@@ -20,7 +20,7 @@ public class Schedule {
     }
 
     public void addScheduledEvent(ScheduledEvent scheduledEvent){
-        this.scheduledEvents.put(scheduledEvent, Boolean.TRUE);
+        this.scheduledEvents.put(scheduledEvent, Boolean.FALSE);
     }
 
     //TODO: implementation
@@ -30,10 +30,16 @@ public class Schedule {
 
     public void executeScheduledEvents(){
         for(ScheduledEvent scheduledEvent:scheduledEvents.keySet()){
-            if(scheduledEvent.isOverScheduledTime() && scheduledEvents.get(scheduledEvent) == Boolean.TRUE){
+            if(scheduledEvent.isOverScheduledTime() && scheduledEvents.get(scheduledEvent) == Boolean.FALSE){
                 scheduledEvent.execute();
-                scheduledEvents.put(scheduledEvent, Boolean.FALSE);
+                scheduledEvents.put(scheduledEvent, Boolean.TRUE);
             }
+        }
+    }
+
+    public void printSchedule(){
+        for(ScheduledEvent s: scheduledEvents.keySet()){
+            System.out.println(s.toString()+"\t"+ (scheduledEvents.get(s)==Boolean.FALSE?"waiting":"done"));
         }
     }
 }
