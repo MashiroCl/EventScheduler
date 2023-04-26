@@ -22,13 +22,22 @@ public class ZoomSchedule extends Schedule {
             CSVReader reader = new CSVReader(new FileReader(zoomSchedulePath));
             String [] line;
             while ((line = reader.readNext()) != null) {
+                // The zoom closed time was already passed
+                if(isPassed(parseCSVTime(line[2]))) continue;
                 addScheduledEvent(new ZoomConnector(line[0], line[3], parseCSVTime(line[1])));
                 addScheduledEvent(new ZoomDisconnector(line[3], parseCSVTime(line[2])));
             }
+            System.out.println("------------------------------Zoom schedule loaded------------------------------");
+            printSchedule();
+            System.out.println("--------------------------------------------------------------------------------\n");
         }
         catch (Exception e){
             System.out.println("Error: load zoom schedule fail,"+e.getMessage());
         }
+    }
+
+    private boolean isPassed(LocalDateTime dateTime){
+        return LocalDateTime.now().isAfter(dateTime);
     }
 
 
