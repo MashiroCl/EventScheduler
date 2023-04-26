@@ -9,6 +9,26 @@ The implemented methods are as follows:
 
 ---
 
+
+## Requirement
+jdk11, gradle7.4.2
+
+install jdk11 with brew
+```shell
+brew install openjdk@11
+```
+
+install gradle with brew
+```shell
+brew install gradle@7
+```
+
+switch java version on macOS with
+```shell
+export JAVA_HOME=/usr/libexec/java_home -v 11
+```
+
+
 ## ZoomScheduler
 Automatically participate and quit a zoom meeting at the scheduled time for you.
 
@@ -22,9 +42,7 @@ git clone git@github.com:MashiroCl/EventScheduler.git
 ./gradlew build
 ```
 
-3. Fill the `lecture.csv` with your scheduled zoom meetings
-
-The `lecture.csv` is under the path `src/main/resources`
+3. Build a `lecture.csv` with your scheduled zoom meetings
 
 The csv file contains 4 columns, where the 1st column is the zoom meeting link(remember to include the pwd for the meeting in the URL), the 2nd column is the start time, the 3rd column is the end time, and the 4th column is for memo.
 
@@ -37,5 +55,5 @@ The csv file contains 4 columns, where the 1st column is the zoom meeting link(r
 
 4. Run the tool
 ```
-./gradlew run
+ java -jar /build/libs/EventScheduler-1.0-SNAPSHOT.jar  <path/to/lecture.csv>
 ```
