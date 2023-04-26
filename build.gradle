@@ -9,7 +9,7 @@ java {
 }
 
 application{
-    mainClassName = 'Application'
+    mainClass.set("Application")
 }
 
 group 'org.mashirocl'
@@ -22,9 +22,20 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-    implementation 'com.opencsv:opencsv:5.5.1'
+    implementation 'com.opencsv:opencsv:5.5.2'
 }
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'Application',
+        'Class-Path': configurations.compileClasspath.files.collect { "lib/$it.name" }.join(' ')
+
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
